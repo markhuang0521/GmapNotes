@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "794117494892",
+    "project_id": "gmapnotes-9594b",
+    "storage_bucket": "gmapnotes-9594b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:794117494892:android:19070e85c4625708982049",
+        "android_client_info": {
+          "package_name": "com.udacity.project4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "794117494892-8iv5knoifo3r4d6imj6fbrmlou1v4up9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWfFElntRvTMnhLBWYO_ib6wr_zsibGok"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "794117494892-8iv5knoifo3r4d6imj6fbrmlou1v4up9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
