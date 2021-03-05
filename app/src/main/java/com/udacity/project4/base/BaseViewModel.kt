@@ -8,9 +8,7 @@ import com.udacity.project4.utils.SingleLiveEvent
 /**
  * Base class for View Models to declare the common LiveData objects in one place
  */
-enum class AuthenticationState {
-    AUTHENTICATED, UNAUTHENTICATED, INVALID_AUTHENTICATION
-}
+
 
 abstract class BaseViewModel(app: Application) : AndroidViewModel(app) {
 

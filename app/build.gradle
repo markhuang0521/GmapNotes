@@ -5,11 +5,14 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
 
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(rootProject.file("local.properties")))
 android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion "29.0.2"
 
     defaultConfig {
+        multiDexEnabled true
         applicationId "com.udacity.project4"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
@@ -18,6 +21,12 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+
+        debug {
+            resValue("string", "google_maps_key", localProperties['mapKey'])
+
+            buildConfigField("String", "MAP_API_KEY", "\"" + localProperties['mapKey'] + "\"")
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -59,6 +68,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-rc1'
     implementation 'com.google.firebase:firebase-auth:20.0.2'
+    implementation 'com.firebaseui:firebase-ui-auth:6.4.0'
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     kapt "androidx.lifecycle:lifecycle-compiler:$archLifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-extensions:$archLifecycleVersion"
@@ -89,7 +100,7 @@ dependencies {
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
     testImplementation "org.robolectric:robolectric:$robolectricVersion"
-    testImplementation "com.google.truth:truth:$truthVersion"
+//    testImplementation "com.google.truth:truth:$truthVersion"
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
 
     // AndroidX Test - JVM testing
@@ -124,5 +135,6 @@ dependencies {
     implementation "com.google.android.gms:play-services-location:$playServicesVersion"
     implementation "com.google.android.gms:play-services-maps:$playServicesVersion"
 
+    implementation "androidx.multidex:multidex:2.0.1"
 
 }

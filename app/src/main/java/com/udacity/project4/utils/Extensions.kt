@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -65,4 +66,10 @@ fun View.fadeOut() {
             this@fadeOut.visibility = View.GONE
         }
     })
+}
+object GeofencingConstants {
+    const val GEOFENCE_RADIUS_IN_METERS = 100f
+    const val ACTION_GEOFENCE_EVENT = "ACTION_GEOFENCE_EVENT"
+    val GEOFENCE_EXPIRATION_IN_MILLISECONDS: Long = TimeUnit.HOURS.toMillis(1)
+
 }

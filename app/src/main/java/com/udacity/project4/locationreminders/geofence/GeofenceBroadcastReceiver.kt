@@ -3,6 +3,8 @@ package com.udacity.project4.locationreminders.geofence
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.udacity.project4.locationreminders.geofence.GeofenceTransitionsJobIntentService.Companion.enqueueWork
+import java.util.concurrent.TimeUnit
 
 /**
  * Triggered by the Geofence.  Since we can have many Geofences at once, we pull the request
@@ -16,8 +18,9 @@ import android.content.Intent
 
 class GeofenceBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
+        enqueueWork(context,intent)
 
-//TODO: implement the onReceive method to receive the geofencing events at the background
 
     }
 }
+
