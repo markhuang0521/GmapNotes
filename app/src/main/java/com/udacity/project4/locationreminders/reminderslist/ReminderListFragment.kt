@@ -66,17 +66,17 @@ class ReminderListFragment : BaseFragment() {
             navigateToAddReminder()
         }
 
-        _viewModel.selectedReminder.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                _viewModel.navigationCommand.postValue(
-                    NavigationCommand.To(
-                        ReminderListFragmentDirections.actionReminderListFragmentToReminderDescriptionActivity(
-                            it
-                        )
-                    )
-                )
-            }
-        })
+//        _viewModel.selectedReminder.observe(viewLifecycleOwner, Observer {
+//            it?.let {
+//                _viewModel.navigationCommand.postValue(
+//                    NavigationCommand.To(
+//                        ReminderListFragmentDirections.actionReminderListFragmentToReminderDescriptionActivity(
+//                            it
+//                        )
+//                    )
+//                )
+//            }
+//        })
 
     }
 

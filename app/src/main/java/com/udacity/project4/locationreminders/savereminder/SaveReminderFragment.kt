@@ -80,9 +80,10 @@ class SaveReminderFragment : BaseFragment() {
             if (_viewModel.validateEnteredData(reminder)) {
                 _viewModel.validateAndSaveReminder(reminder)
                 addGeofence(reminder)
-            } else {
-                _viewModel.showErrorMessage.postValue(getString(R.string.error_saving_reminder))
             }
+//            else {
+//                _viewModel.showErrorMessage.postValue(getString(R.string.error_saving_reminder))
+//            }
 
 
 //            LocalDB.createRemindersDao(requireContext()).saveReminder(reminder)
