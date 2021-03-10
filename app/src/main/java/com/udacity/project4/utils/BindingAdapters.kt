@@ -18,7 +18,6 @@ object BindingAdapters {
     fun <T> setRecyclerViewData(recyclerView: RecyclerView, items: LiveData<List<T>>?) {
         items?.value?.let { itemList ->
             (recyclerView.adapter as? BaseRecyclerViewAdapter<T>)?.apply {
-                clear()
                 addData(itemList)
             }
         }

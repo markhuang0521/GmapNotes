@@ -5,10 +5,9 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
 
-def localProperties = new Properties()
-localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
 android {
-    compileSdkVersion rootProject.compileSdkVersion
+    compileSdkVersion 29
     buildToolsVersion "29.0.2"
 
     defaultConfig {
@@ -23,9 +22,7 @@ android {
     buildTypes {
 
         debug {
-            resValue("string", "google_maps_key", localProperties['mapKey'])
 
-            buildConfigField("String", "MAP_API_KEY", "\"" + localProperties['mapKey'] + "\"")
         }
         release {
             minifyEnabled false
@@ -128,7 +125,6 @@ dependencies {
     androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
     androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$dexMakerVersion"
     androidTestImplementation('org.koin:koin-test:2.0.1') { exclude group: 'org.mockito' }
-
 
 
     //Maps & Geofencing

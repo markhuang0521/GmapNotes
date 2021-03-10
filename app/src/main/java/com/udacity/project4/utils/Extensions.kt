@@ -68,7 +68,7 @@ fun View.fadeOut() {
     })
 }
 object GeofencingConstants {
-    const val GEOFENCE_RADIUS_IN_METERS = 100f
+    const val GEOFENCE_RADIUS_IN_METERS = 300f
     const val ACTION_GEOFENCE_EVENT = "ACTION_GEOFENCE_EVENT"
     val GEOFENCE_EXPIRATION_IN_MILLISECONDS: Long = TimeUnit.HOURS.toMillis(1)
 

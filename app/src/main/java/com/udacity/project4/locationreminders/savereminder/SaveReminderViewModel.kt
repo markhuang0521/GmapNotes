@@ -42,6 +42,12 @@ class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSo
         }
     }
 
+    fun validateAndUpdateReminder(reminderData: ReminderDataItem) {
+        if (validateEnteredData(reminderData)) {
+            updateReminder(reminderData)
+        }
+    }
+
     /**
      * Save the reminder to the data source
      */
@@ -64,6 +70,25 @@ class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSo
         }
     }
 
+    fun updateReminder(reminderData: ReminderDataItem) {
+        showLoading.value = true
+        viewModelScope.launch {
+            dataSource.updateReminder(
+                ReminderDTO(
+                    reminderData.title,
+                    reminderData.description,
+                    reminderData.location,
+                    reminderData.latitude,
+                    reminderData.longitude,
+                    reminderData.id
+                )
+            )
+            showLoading.value = false
+            showToast.value = "update successful"
+            navigationCommand.value = NavigationCommand.Back
+        }
+    }
+
     /**
      * Validate the entered data and show error to the user if there's any invalid data
      */
@@ -79,4 +104,6 @@ class SaveReminderViewModel(val app: Application, val dataSource: ReminderDataSo
         }
         return true
     }
+
+
 }

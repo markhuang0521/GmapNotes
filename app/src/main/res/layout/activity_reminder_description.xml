@@ -6,6 +6,10 @@
     <data>
         <!--Data item that holds the reminder details-->
         <variable
+            name="viewModel"
+            type="com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel" />
+
+        <variable
             name="reminderDataItem"
             type="com.udacity.project4.locationreminders.reminderslist.ReminderDataItem" />
     </data>
@@ -68,17 +72,16 @@
             app:layout_constraintTop_toTopOf="@id/selectLocation"
             tools:text="Location" />
 
-        <!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-        <!--            android:id="@+id/saveReminder"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_margin="@dimen/margin_normal"-->
-        <!--            android:fadeVisible="@{!viewModel.showLoading.booleanValue()}"-->
-        <!--            android:src="@drawable/ic_save"-->
-        <!--            app:fabSize="normal"-->
-        <!--            app:layout_anchorGravity="bottom|right|end"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent" />-->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_editReminder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_normal"
+            android:src="@drawable/ic_edit_white"
+            app:fabSize="normal"
+            app:layout_anchorGravity="bottom|right|end"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <!--        <ProgressBar-->
         <!--            android:id="@+id/progressBar"-->

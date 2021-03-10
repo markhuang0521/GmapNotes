@@ -51,7 +51,6 @@ val binding:ActivityAuthenticationBinding =DataBindingUtil.setContentView(this,R
             AuthUI.IdpConfig.EmailBuilder().build(), AuthUI.IdpConfig.GoogleBuilder().build()
         )
 
-
         startActivityForResult(
             AuthUI.getInstance().createSignInIntentBuilder()
                 .setAvailableProviders(providers)

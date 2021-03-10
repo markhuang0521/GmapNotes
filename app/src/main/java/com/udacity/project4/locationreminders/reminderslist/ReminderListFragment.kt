@@ -65,18 +65,24 @@ class ReminderListFragment : BaseFragment() {
         binding.addReminderFAB.setOnClickListener {
             navigateToAddReminder()
         }
+        _viewModel.remindersList.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                (binding.reminderssRecyclerView.adapter as RemindersListAdapter).addData(it)
+            }
+        })
 
-//        _viewModel.selectedReminder.observe(viewLifecycleOwner, Observer {
-//            it?.let {
-//                _viewModel.navigationCommand.postValue(
-//                    NavigationCommand.To(
-//                        ReminderListFragmentDirections.actionReminderListFragmentToReminderDescriptionActivity(
-//                            it
-//                        )
-//                    )
-//                )
-//            }
-//        })
+        _viewModel.selectedReminder.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                _viewModel.navigationCommand.postValue(
+                    NavigationCommand.To(
+                        ReminderListFragmentDirections.actionReminderListFragmentToReminderDescriptionActivity(
+                            it
+                        )
+                    )
+                )
+                _viewModel.selectedReminder.value = null
+            }
+        })
 
     }
 
@@ -94,7 +100,7 @@ class ReminderListFragment : BaseFragment() {
             )
         )
     }
-    
+
 
     private fun setupRecyclerView() {
         val adapter = RemindersListAdapter {
@@ -111,6 +117,9 @@ class ReminderListFragment : BaseFragment() {
             R.id.logout -> {
                 signOut()
             }
+            R.id.menu_deleteAll -> {
+                _viewModel.deleteAllReminder()
+            }
         }
         return super.onOptionsItemSelected(item)
 
@@ -122,7 +131,6 @@ class ReminderListFragment : BaseFragment() {
         inflater.inflate(R.menu.main_menu, menu)
     }
 
-    @TargetApi(29)
     private fun foregroundAndBackgroundLocationPermissionApproved(): Boolean {
         val foregroundLocationApproved = (
                 PackageManager.PERMISSION_GRANTED ==
@@ -142,7 +150,6 @@ class ReminderListFragment : BaseFragment() {
         return foregroundLocationApproved && backgroundPermissionApproved
     }
 
-    @TargetApi(29)
     private fun requestLocationPermissions() {
         if (foregroundAndBackgroundLocationPermissionApproved())
             return

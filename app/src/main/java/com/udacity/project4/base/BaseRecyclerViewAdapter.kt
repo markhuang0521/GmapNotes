@@ -48,6 +48,7 @@ abstract class BaseRecyclerViewAdapter<T>(private val callback: ((item: T) -> Un
      * @param items to be merged
      */
     fun addData(items: List<T>) {
+        clear()
         _items.addAll(items)
         notifyDataSetChanged()
     }
