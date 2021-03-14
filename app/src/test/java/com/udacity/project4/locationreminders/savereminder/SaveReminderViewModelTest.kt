@@ -15,6 +15,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.Matchers
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.nullValue
 import org.hamcrest.core.IsEqual
@@ -129,6 +130,23 @@ class SaveReminderViewModelTest {
 
         assertThat(isValid.toString(), `is`("true"))
 
+    }
+    @Test
+    fun check_loading() = mainCoroutineRule.runBlockingTest {
+        val reminderDataItem = ReminderDataItem(
+            "title", null, "location",
+            null, null
+        )
+        mainCoroutineRule.pauseDispatcher()
+        viewModel.saveReminder(reminderDataItem)
+
+        val showLoadingBefore = viewModel.showLoading.getOrAwaitValue()
+        assertThat(showLoadingBefore.toString(), Matchers.equalTo("true"))
+
+        mainCoroutineRule.resumeDispatcher()
+
+        val showLoadingAfter = viewModel.showLoading.getOrAwaitValue()
+        assertThat(showLoadingAfter.toString(), Matchers.equalTo("false"))
     }
 
 
