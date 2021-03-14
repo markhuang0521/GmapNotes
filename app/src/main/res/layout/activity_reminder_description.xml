@@ -23,7 +23,7 @@
 
         <EditText
 
-            android:id="@+id/reminderTitle"
+            android:id="@+id/detail_reminderTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/reminder_title"
@@ -33,7 +33,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/reminderDescription"
+            android:id="@+id/detail_reminderDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start"
@@ -42,10 +42,10 @@
             android:text="@={reminderDataItem.description}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/reminderTitle" />
+            app:layout_constraintTop_toBottomOf="@id/detail_reminderTitle" />
 
         <TextView
-            android:id="@+id/selectLocation"
+            android:id="@+id/detail_selectLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
@@ -57,19 +57,19 @@
             android:text="@string/reminder_location"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/reminderDescription" />
+            app:layout_constraintTop_toBottomOf="@id/detail_reminderDescription" />
 
         <TextView
-            android:id="@+id/selectedLocation"
+            android:id="@+id/detail_selectedLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_normal"
             android:layout_marginRight="@dimen/margin_normal"
             android:text="@{reminderDataItem.location}"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="@id/selectLocation"
+            app:layout_constraintBottom_toBottomOf="@id/detail_selectLocation"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/selectLocation"
+            app:layout_constraintTop_toTopOf="@id/detail_selectLocation"
             tools:text="Location" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

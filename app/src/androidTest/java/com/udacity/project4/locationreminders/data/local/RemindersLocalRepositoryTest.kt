@@ -20,7 +20,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-//import com.udacity.project4.locationreminders.MainCoroutineRule
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
@@ -33,8 +32,7 @@ class RemindersLocalRepositoryTest {
 
 //    @get: Rule
 //    var mainCoroutineRule = MainCoroutineRule()
-    @get:Rule
-    var instantTaskExecutorRule = InstantTaskExecutorRule()
+
 
     @Before
     fun init() {
@@ -43,19 +41,19 @@ class RemindersLocalRepositoryTest {
             RemindersDatabase::class.java
         ).build().reminderDao()
 
-        remindersRepository = RemindersLocalRepository(remindersDao, Dispatchers.Main)
-        Dispatchers.setMain(testDispatcher)
+        remindersRepository = RemindersLocalRepository(remindersDao)
+//        Dispatchers.setMain(testDispatcher)
 
     }
 
     @After
     fun closeDatabase() {
-        testDispatcher.cleanupTestCoroutines()
+//        testDispatcher.cleanupTestCoroutines()
 
     }
 
     @Test
-    fun saveAndGetReminders_returnList() = runBlockingTest {
+    fun saveAndGetReminders_returnList() = runBlocking {
         val reminder = ReminderDTO("title", "desc", "LA", 21.1, 21.1)
         val reminder2 = ReminderDTO("title", "desc", "LA", 21.1, 21.1)
 
@@ -71,7 +69,7 @@ class RemindersLocalRepositoryTest {
     }
 
     @Test
-    fun getReminder_returnItem() = runBlockingTest {
+    fun getReminder_returnItem() = runBlocking {
         val reminder = ReminderDTO("title", "desc", "LA", 21.1, 21.1)
         remindersRepository.saveReminder(reminder)
 

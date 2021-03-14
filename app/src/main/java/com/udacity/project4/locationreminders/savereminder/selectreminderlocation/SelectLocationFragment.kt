@@ -4,22 +4,21 @@ package com.udacity.project4.locationreminders.savereminder.selectreminderlocati
 import android.Manifest
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
-import android.content.IntentSender
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
-import com.google.android.gms.common.api.ResolvableApiException
-import com.google.android.gms.location.*
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.*
-import com.google.android.material.snackbar.Snackbar
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.android.gms.maps.model.MarkerOptions
 import com.udacity.project4.R
 import com.udacity.project4.authentication.AuthenticationActivity.Companion.TAG
 import com.udacity.project4.base.BaseFragment
@@ -29,7 +28,7 @@ import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
 import com.udacity.project4.utils.setDisplayHomeAsUpEnabled
 import org.koin.android.ext.android.inject
 
-class SelectLocationFragment : BaseFragment(),OnMapReadyCallback {
+class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
 
     //Use Koin to get the view model of the SaveReminder
     override val _viewModel: SaveReminderViewModel by inject()
@@ -51,6 +50,7 @@ class SelectLocationFragment : BaseFragment(),OnMapReadyCallback {
 
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
@@ -64,14 +64,20 @@ class SelectLocationFragment : BaseFragment(),OnMapReadyCallback {
             _viewModel.onClear()
         }
     }
+
     override fun onMapReady(googleMap: GoogleMap) {
-        map=googleMap
+        map = googleMap
+
+
         setMapStyle(map)
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(34.0837, -118.0733), 15f));
+
 
         enableMyLocation()
         setPoiClick(map)
 
     }
+
     private fun setPoiClick(map: GoogleMap) {
         map.setOnPoiClickListener { poi ->
             if (_viewModel.selectedPOI.value == null) {
@@ -87,16 +93,18 @@ class SelectLocationFragment : BaseFragment(),OnMapReadyCallback {
 
                 _viewModel.latitude.value = poi.latLng.latitude
                 _viewModel.longitude.value = poi.latLng.longitude
-            }else{
+            } else {
                 _viewModel.showErrorMessage.postValue(getString(R.string.error_only_one_location))
 
             }
         }
-        }
+    }
+
+
     private fun onLocationSelected() {
         if (_viewModel.selectedPOI.value != null) {
-            _viewModel.navigationCommand.value=NavigationCommand.Back
-        }else{
+            _viewModel.navigationCommand.value = NavigationCommand.Back
+        } else {
             _viewModel.showErrorMessage.postValue(getString(R.string.error_empty_location))
 
         }
@@ -107,29 +115,27 @@ class SelectLocationFragment : BaseFragment(),OnMapReadyCallback {
     }
 
 
-
-
     @SuppressLint("MissingPermission")
-private fun enableMyLocation(){
-    if (foregroundAndBackgroundLocationPermissionApproved()) {
-        map.isMyLocationEnabled = true
-    }
-    else {
-        _viewModel.showErrorMessage.postValue(getString(R.string.location_required_error))
+    private fun enableMyLocation() {
+        if (foregroundAndBackgroundLocationPermissionApproved()) {
+            map.isMyLocationEnabled = true
+        } else {
+            _viewModel.showErrorMessage.postValue(getString(R.string.location_required_error))
 
+        }
     }
-}
-
 
 
     @TargetApi(29)
     private fun foregroundAndBackgroundLocationPermissionApproved(): Boolean {
         val foregroundLocationApproved = (
                 PackageManager.PERMISSION_GRANTED ==
-                        ActivityCompat.checkSelfPermission(requireContext(),
-                            Manifest.permission.ACCESS_FINE_LOCATION))
+                        ActivityCompat.checkSelfPermission(
+                            requireContext(),
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                        ))
         val backgroundPermissionApproved =
-            if ( android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
                 PackageManager.PERMISSION_GRANTED ==
                         ActivityCompat.checkSelfPermission(
                             requireContext(), Manifest.permission.ACCESS_BACKGROUND_LOCATION
@@ -188,8 +194,6 @@ private fun enableMyLocation(){
         }
         else -> super.onOptionsItemSelected(item)
     }
-
-
 
 
 }
